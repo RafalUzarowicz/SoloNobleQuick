@@ -4,16 +4,21 @@ import QtQuick.Layouts 1.15
 
 Item{
     id: board
-    property var boardSize: 7
 
-    property int selectedTileX: 0
-    property int selectedTileY: 0
+    property var boardSize: 7
     property int selectedTileIndex: 0
 
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
 
     property var boardMinLenght: Math.min(width, height)
+
+    property var grid: grid
+
+    Behavior on opacity{
+        NumberAnimation{
+            duration: 300
+        }
+    }
 
     Repeater{
         id: grid
