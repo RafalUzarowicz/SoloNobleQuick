@@ -1,25 +1,13 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 
-//Item {
-//    anchors.fill: parent
-//    visible: true
-
-//    Game {
-//        id: game
-//    }
-//}
-
-
 Window {
     width: 640
     height: 480
+    minimumWidth: 100
+    minimumHeight: 100
     visible: true
-    title: qsTr("Hello Quick")
-
-
-
+    title: qsTr("Solo Noble Quick")
     Game {
-        id: game
     }
 }

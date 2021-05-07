@@ -2,12 +2,8 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 
 Rectangle{
-
-    antialiasing: true
-
     property int indexX: 0
     property int indexY: 0
-
     property int tileIndex: indexX + boardSize*indexY
 
     property var occupied: false
@@ -27,6 +23,7 @@ Rectangle{
 
     property var farNeighbours: [indexX-2 + boardSize*indexY, indexX+2 + boardSize*indexY, indexX + boardSize*(indexY-2), indexX + boardSize*(indexY+2)]
 
+    antialiasing: true
     color: "transparent"
     height: width
     width: 50
@@ -57,18 +54,17 @@ Rectangle{
 
     Rectangle{
         id: highlight
-        anchors.centerIn: parent
-        antialiasing: parent.antialiasing
 
         property var highlightColor: "blue"
+        property var fromColor: !occupied && highlighted ? highlightColor : "transparent"
+        property var toColor: !(!occupied && highlighted) ? highlightColor : "transparent"
 
+        anchors.centerIn: parent
+        antialiasing: parent.antialiasing
         color: !occupied && highlighted ? highlightColor : "transparent"
         height: width
         width: parent.width
         radius: 0.3 * width
-
-        property var fromColor: !occupied && highlighted ? highlightColor : "transparent"
-        property var toColor: !(!occupied && highlighted) ? highlightColor : "transparent"
 
         Behavior on color{
             ColorAnimation {
@@ -81,18 +77,17 @@ Rectangle{
 
     Rectangle{
         id: mark
-        anchors.centerIn: parent
-        antialiasing: parent.antialiasing
 
         property var markColor: "red"
+        property var fromColor: !occupied && marked ? markColor : "transparent"
+        property var toColor: !(!occupied && marked) ? markColor : "transparent"
 
+        anchors.centerIn: parent
+        antialiasing: parent.antialiasing
         color: !occupied && marked ? markColor : "transparent"
         height: width
         width: parent.width
         radius: 0.3 * width
-
-        property var fromColor: !occupied && marked ? markColor : "transparent"
-        property var toColor: !(!occupied && marked) ? markColor : "transparent"
 
         Behavior on color{
             ColorAnimation {
@@ -105,9 +100,9 @@ Rectangle{
 
     Rectangle{
         id: spot
+
         anchors.centerIn: parent
         antialiasing: parent.antialiasing
-
         radius: parent.width*0.1
         width: radius*2
         height: width
@@ -124,19 +119,17 @@ Rectangle{
 
     Rectangle{
         id: selection
-        anchors.centerIn: parent
-        antialiasing: parent.antialiasing
 
         property var selectionColor: "black"
+        property var fromColor: occupied && selected ? selectionColor : "transparent"
+        property var toColor: !(occupied && selected) ? selectionColor : "transparent"
 
+        anchors.centerIn: parent
+        antialiasing: parent.antialiasing
         radius: parent.width*0.45
         width: radius*2
         height: width
         color: occupied && selected ? selectionColor : "transparent"
-
-
-        property var fromColor: occupied && selected ? selectionColor : "transparent"
-        property var toColor: !(occupied && selected) ? selectionColor : "transparent"
 
         Behavior on color{
             ColorAnimation {
@@ -149,16 +142,16 @@ Rectangle{
 
     Rectangle{
         id: pawn
+
+        property var fromColor: occupied ? "green" : "transparent"
+        property var toColor: !occupied ? "green" : "transparent"
+
         anchors.centerIn: parent
         antialiasing: parent.antialiasing
-
         radius: parent.width*0.4
         width: radius*2
         height: width
         color: occupied ? "green" : "transparent"
-
-        property var fromColor: occupied ? "green" : "transparent"
-        property var toColor: !occupied ? "green" : "transparent"
 
         Behavior on color{
             ColorAnimation {

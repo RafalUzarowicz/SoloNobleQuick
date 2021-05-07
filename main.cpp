@@ -7,35 +7,38 @@
 
 #include "filewatcher.h"
 
+#define LIVE
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-//    QGuiApplication app(argc, argv);
+#ifdef LIVE
+    QGuiApplication app(argc, argv);
 
-//    QQuickView view;
+    QQuickView view;
 
-//    const QDir DIRECTORY("C:/Users/Szafer/QtProjects/SoloNobleQuick");
-//    const QUrl SOURCE_URL = QUrl::fromLocalFile(DIRECTORY.filePath("main.qml"));
+    const QDir DIRECTORY("C:/Users/Szafer/QtProjects/SoloNobleQuick");
+    const QUrl SOURCE_URL = QUrl::fromLocalFile(DIRECTORY.filePath("Game.qml"));
 
-//    view.setSource(SOURCE_URL);
-//    view.setWidth(800);
-//    view.setHeight(600);
-//    view.show();
+    view.setSource(SOURCE_URL);
+    view.setWidth(800);
+    view.setHeight(600);
+    view.show();
 
-//    FileWatcher watcher([&view, SOURCE_URL](){
-//        view.engine()->clearComponentCache();
-//        view.setSource(SOURCE_URL);
-//        view.setWidth(800);
-//        view.setHeight(600);
-//    });
+    FileWatcher watcher([&view, SOURCE_URL](){
+        view.engine()->clearComponentCache();
+        view.setSource(SOURCE_URL);
+        view.setWidth(800);
+        view.setHeight(600);
+    });
 
-//    watcher.setDirectory(DIRECTORY.absolutePath());
+    watcher.setDirectory(DIRECTORY.absolutePath());
 
-//    return app.exec();
-
+    return app.exec();
+#else
     QGuiApplication app(argc, argv);
 
     QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
@@ -50,4 +53,5 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     return app.exec();
+#endif
 }

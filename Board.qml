@@ -7,12 +7,9 @@ Item{
 
     property var boardSize: 7
     property int selectedTileIndex: 0
-
-    anchors.fill: parent
-
     property var boardMinLenght: Math.min(width, height)
 
-    property var grid: grid
+    anchors.fill: parent
 
     Behavior on opacity{
         NumberAnimation{
